@@ -17,7 +17,7 @@ require_once 'assets/mysql_connect.php';
 	    <meta name="keywords" content="MediaCenter, Template, eCommerce">
 	    <meta name="robots" content="all">
 
-	    <title>dResponsive eCommerce Template</title>
+	    <title>dResponsive eCommerdce Template</title>
 
 	    <!-- Bootstrap Core CSS -->
 	    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
