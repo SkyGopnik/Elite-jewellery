@@ -25,9 +25,9 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
+            <a class="nav-link" href="./comments.php">
               <i class="material-icons">library_books</i>
-              <p>Typography</p>
+              <p>Список комментариев</p>
             </a>
           </li>
           <li class="nav-item ">

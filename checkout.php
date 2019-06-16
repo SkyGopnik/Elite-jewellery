@@ -61,11 +61,11 @@ require_once 'assets/mysql_connect.php';
                                 <div class="row field-row">
                                     <div class="col-xs-12 col-sm-6">
                                         <label>Фамилия*</label>
-                                        <input class="le-input" name="surname">
+                                        <input class="le-input" name="surname" required>
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
                                         <label>Имя*</label>
-                                        <input class="le-input" name="name">
+                                        <input class="le-input" name="name" required>
                                     </div>
                                 </div>
 
@@ -94,12 +94,12 @@ require_once 'assets/mysql_connect.php';
                                     </div> -->
                                     <div class="col-xs-12 col-sm-6">
                                         <label>Email*</label>
-                                        <input class="le-input" name="email">
+                                        <input class="le-input" name="email" required>
                                     </div> 
  
                                     <div class="col-xs-12 col-sm-6">
                                         <label>Номер телефона*</label>
-                                        <input class="le-input" name="phone_number">
+                                        <input class="le-input" name="phone_number" required> 
                                     </div>
                                 </div>
                             </div>

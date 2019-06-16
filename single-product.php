@@ -3,6 +3,10 @@ session_start();
 
 require_once 'assets/mysql_connect.php';
 
+if(isset($_GET['id'])) {
+    $_SESSION['last_seen'][] = $_GET['id'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -108,6 +112,89 @@ require_once 'assets/mysql_connect.php';
                     </div>
                 </div>
             </div>
+            <!-- ========================================= SINGLE PRODUCT TAB ========================================= -->
+            <section id="single-product-tab">
+                <div class="container">
+                    <div class="tab-holder">
+                        <div class="comments">
+                            <?  
+                                $params = array(
+                                    'value_id' => $_GET['id']
+                                );
+    
+                                $searchComments = $mysql->prepare("SELECT * FROM shop_comments WHERE is_visible=1 AND product_id = :value_id ORDER BY `id` DESC");
+                                $searchComments->execute($params);
+                                foreach ($searchComments->fetchAll() as $row) {
+                                    echo '
+                                        <div class="comment-item">
+                                            <div class="row no-margin">
+                                                <div class="col-lg-1 col-xs-12 col-sm-2 no-margin">
+                                                    <div class="avatar">
+                                                        <img alt="avatar" src="assets/images/default-avatar.jpg">
+                                                    </div>
+                                                </div>
+            
+                                                <div class="col-xs-12 col-lg-11 col-sm-10 no-margin">
+                                                    <div class="comment-body">
+                                                        <div class="meta-info">
+                                                            <div class="author inline">
+                                                                '.$row['name_surname'].'
+                                                            </div>
+                                                            <div class="date inline pull-right">
+                                                                '.date('d-m-o G:i', $row['comment_date']).'
+                                                            </div>
+                                                        </div>
+                                                        <p class="comment-text">
+                                                            '.$row['comment_text'].'
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ';
+                                }
+                            ?>
+                        </div><!-- /.comments -->
+
+                        <div class="add-review row">
+                            <div class="col-sm-8 col-xs-12">
+                                <div class="new-review-form">
+                                    <h2>Добавить отзыв</h2>
+                                    <form id="contact-form" class="contact-form" method="post" action="assets/post_files/addnewcomment.php?id=<?=$_GET['id'];?>">
+                                        <div class="row field-row">
+                                            <div class="col-xs-12 col-sm-6">
+                                                <label>Имя*</label>
+                                                <input class="le-input" name="name" required>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6">
+                                                <label>Фамилия*</label>
+                                                <input class="le-input" name="surname" required>
+                                            </div>
+                                        </div><!-- /.field-row -->
+
+                                        <div class="row field-row">
+                                            <div class="col-xs-12 col-sm-12">
+                                                <label>Email*</label>
+                                                <input class="le-input" name="email" required>
+                                            </div>
+                                        </div><!-- /.field-row -->
+
+                                        <div class="field-row"> 
+                                            <label>Ваш отзыв</label>
+                                            <textarea rows="8" class="le-input" name="comment" required></textarea>
+                                        </div><!-- /.field-row -->
+
+                                        <div class="buttons-holder">
+                                            <input type="submit" class="le-button huge" name="addnewcomment" value="Отправить">
+                                        </div><!-- /.buttons-holder -->
+                                    </form><!-- /.contact-form -->
+                                </div><!-- /.new-review-form -->
+                            </div><!-- /.col -->
+                        </div><!-- /.add-review -->
+                    </div><!-- /.tab-holder -->
+                </div><!-- /.container -->
+            </section><!-- /#single-product-tab -->
+            <!-- ========================================= SINGLE PRODUCT TAB : END ========================================= -->
             <!-- ============================================================= FOOTER ============================================================= -->
             <? require_once 'assets/footer.php'; ?>
             <!-- ============================================================= FOOTER : END ============================================================= -->

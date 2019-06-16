@@ -2518,8 +2518,6 @@ header {
 
 #single-product-tab {
   margin: 42px 0 20px 0; }
-  #single-product-tab .tab-content {
-    border: 1px solid #e0e0e0; }
   #single-product-tab .tab-pane {
     padding: 35px; }
     #single-product-tab .tab-pane p {

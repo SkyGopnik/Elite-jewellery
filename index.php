@@ -104,103 +104,36 @@ require_once 'assets/mysql_connect.php';
                 <div class="container">
                     <h1 class="section-title">Новые товары</h1>
                     <div class="product-grid-holder">
-                        <div class="col-sm-4 col-md-3  no-margin product-item-holder hover">
-                            <div class="product-item">
-                                <div class="ribbon blue"><span>новый!</span></div>
-                                <div class="image">
-                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-01.jpg" />
-                                </div>
-                                <div class="body">
-                                    <div class="title">
-                                        <a href="single-product.html">VAIO Fit Laptop - Windows 8 SVF14322CXW</a>
-                                    </div>
-                                    <div class="brand">sony</div>
-                                </div>
-                                <div class="prices">
-                                    <div class="price-prev">$1399.00</div>
-                                    <div class="price-current pull-right">$1199.00</div>
-                                </div>
-
-                                <div class="hover-area">
-                                    <div class="add-cart-button">
-                                        <a href="single-product.html" class="le-button">добавить в корзину</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-md-3 no-margin product-item-holder hover">
-                            <div class="product-item">
-                                <div class="ribbon blue"><span>новый!</span></div>
-                                <div class="image">
-                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-02.jpg" />
-                                </div>
-                                <div class="body">
-                                    <div class="label-discount clear"></div>
-                                    <div class="title">
-                                        <a href="single-product.html">White lumia 9001</a>
-                                    </div>
-                                    <div class="brand">nokia</div>
-                                </div>
-                                <div class="prices">
-                                    <div class="price-prev">$1399.00</div>
-                                    <div class="price-current pull-right">$1199.00</div>
-                                </div>
-                                <div class="hover-area">
-                                    <div class="add-cart-button">
-                                        <a href="single-product.html" class="le-button">добавить в корзину</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-md-3 no-margin product-item-holder hover">
-                            <div class="product-item">
-                                <div class="ribbon blue"><span>новый!</span></div>
-                                <div class="image">
-                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-03.jpg" />
-                                </div>
-                                <div class="body">
-                                    <div class="label-discount clear"></div>
-                                    <div class="title">
-                                        <a href="single-product.html">POV Action Cam</a>
-                                    </div>
-                                    <div class="brand">sony</div>
-                                </div>
-                                <div class="prices">
-                                    <div class="price-prev">$1399.00</div>
-                                    <div class="price-current pull-right">$1199.00</div>
-                                </div>
-                                <div class="hover-area">
-                                    <div class="add-cart-button">
-                                        <a href="single-product.html" class="le-button">добавить в корзину</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-md-3 no-margin product-item-holder hover">
-                            <div class="product-item">
-                                <div class="ribbon blue"><span>новый!</span></div>
-                                <div class="image">
-                                    <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-04.jpg" />
-                                </div>
-                                <div class="body">
-                                    <div class="label-discount clear"></div>
-                                    <div class="title">
-                                        <a href="single-product.html">Netbook Acer TravelMate
-                                            B113-E-10072</a>
-                                    </div>
-                                    <div class="brand">acer</div>
-                                </div>
-                                <div class="prices">
-                                    <div class="price-prev">$1399.00</div>
-                                    <div class="price-current pull-right">$1199.00</div>
-                                </div>
-                                <div class="hover-area">
-                                    <div class="add-cart-button">
-                                        <a href="single-product.html" class="le-button">добавить в корзину</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php
+                            foreach ($mysql->query("SELECT * FROM `shop_products` ORDER BY RAND() LIMIT 4") as $row) {
+                                echo '
+                                    <div class="col-sm-4 col-md-3  no-margin product-item-holder hover" style="margin-bottom: 50px">
+                                        <div class="product-item">
+                                            <div class="ribbon blue"><span>новый!</span></div>
+                                            <div class="image">
+                                                <img alt="" src="assets/images/blank.gif" data-echo="'.$row['img_src'].'" />
+                                            </div>
+                                            <div class="body">
+                                                <div class="title">
+                                                    <a href="single-product.php?id='.$row['id'].'&category='.$row['category'].'&count=1">'.$row['name'].'</a>
+                                                </div>
+                                                <div class="brand">'.$row['brand'].'</div>
+                                            </div>
+                                            <div class="prices">
+                                                <div class="price-prev">'.($row['price']+1000).'.00 грн.</div>
+                                                <div class="price-current pull-right">'.$row['price'].'.00 грн.</div>
+                                            </div>
+            
+                                            <div class="hover-area">
+                                                <div class="add-cart-button">
+                                                    <a href="assets/addtocart.php?id='.$row['id'].'&category='.$row['category'].'&count=1" class="le-button">Добавить в корзину</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>   
+                                ';
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -210,189 +143,50 @@ require_once 'assets/mysql_connect.php';
                     <div class="carousel-holder hover">
                         <h2 class="h1">Недавно просмотренные</h2>
                         <div id="owl-recently-viewed" class="owl-carousel product-grid-holder">
-                            <div class="no-margin carousel-item product-item-holder size-small hover">
-                                <div class="product-item">
-                                    <div class="ribbon red"><span>sale</span></div>
-                                    <div class="image">
-                                        <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-01.jpg" />
-                                    </div>
-                                    <div class="body">
-                                        <div class="title">
-                                            <a href="single-product.html">LC-70UD1U 70" class aquos 4K ultra HD</a>
-                                        </div>
-                                        <div class="brand">Sharp</div>
-                                    </div>
-                                    <div class="prices">
-                                        <div class="price-current text-right">$1199.00</div>
-                                    </div>
-                                    <div class="hover-area">
-                                        <div class="add-cart-button">
-                                            <a href="single-product.html" class="le-button">добавить в корзину</a>
-                                        </div>
-                                    </div>
-                                </div><!-- /.product-item -->
-                            </div><!-- /.product-item-holder -->
+                            <?  
+                                $_SESSION['products_last_seen'] = array();
+                                $_SESSION['last_seen'] = array_unique($_SESSION['last_seen']);
 
-                            <div class="no-margin carousel-item product-item-holder size-small hover">
-                                <div class="product-item">
-                                    <div class="ribbon blue"><span>new!</span></div>
-                                    <div class="image">
-                                        <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-01.jpg" />
-                                    </div>
-                                    <div class="body">
-                                        <div class="title">
-                                            <a href="single-product.html">cinemizer OLED 3D virtual reality TV Video</a>
-                                        </div>
-                                        <div class="brand">zeiss</div>
-                                    </div>
-                                    <div class="prices">
-                                        <div class="price-current text-right">$1199.00</div>
-                                    </div>
-                                    <div class="hover-area">
-                                        <div class="add-cart-button">
-                                            <a href="single-product.html" class="le-button">добавить в корзину</a>
-                                        </div>
-                                    </div>
-                                </div><!-- /.product-item -->
-                            </div><!-- /.product-item-holder -->
+                                for ($i=0; $i < count($_SESSION['last_seen']); $i++) { 
+                                    if(is_numeric($_SESSION['last_seen'][$i])) {
+                                        $getProduct = $mysql->query("SELECT * FROM `shop_products` WHERE `id`=".$_SESSION['last_seen'][$i]);
+                                        if($getProduct->rowCount() != 0) {
+                                            $row = $getProduct->fetchAll();
+                                            $_SESSION['products_last_seen'][] = '
+                                                <div class="no-margin carousel-item product-item-holder size-small hover">
+                                                    <div class="product-item">
+                                                        <div class="image">
+                                                            <img alt="" src="assets/images/blank.gif" data-echo="'.$row[0]['img_src'].'" />
+                                                        </div>
+                                                        <div class="body">
+                                                            <div class="title">
+                                                                <a href="single-product.php?id='.$row[0]['id'].'&category='.$row[0]['category'].'&count=1">'.$row[0]['name'].'</a>
+                                                            </div>
+                                                            <div class="brand">'.$row[0]['brand'].'</div>
+                                                        </div>
+                                                        <div class="prices">
+                                                            <div class="price-current text-right">'.$row[0]['price'].'.00 грн.</div>
+                                                        </div>
+                                                        <div class="hover-area">
+                                                            <div class="add-cart-button">
+                                                                <a href="assets/addtocart.php?id='.$row[0]['id'].'&category='.$row[0]['category'].'&count=1" class="le-button">Добавить в корзину</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ';
+                                        }
+                                    } 
+                                }
 
-                            <div class=" no-margin carousel-item product-item-holder size-small hover">
-                                <div class="product-item">
-
-                                    <div class="image">
-                                        <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-01.jpg" />
-                                    </div>
-                                    <div class="body">
-                                        <div class="title">
-                                            <a href="single-product.html">s2340T23" full HD multi-Touch Monitor</a>
-                                        </div>
-                                        <div class="brand">dell</div>
-                                    </div>
-                                    <div class="prices">
-                                        <div class="price-current text-right">$1199.00</div>
-                                    </div>
-                                    <div class="hover-area">
-                                        <div class="add-cart-button">
-                                            <a href="single-product.html" class="le-button">добавить в корзину</a>
-                                        </div>
-                                    </div>
-                                </div><!-- /.product-item -->
-                            </div><!-- /.product-item-holder -->
-
-                            <div class=" no-margin carousel-item product-item-holder size-small hover">
-                                <div class="product-item">
-                                    <div class="ribbon blue"><span>new!</span></div>
-                                    <div class="image">
-                                        <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-01.jpg" />
-                                    </div>
-                                    <div class="body">
-                                        <div class="title">
-                                            <a href="single-product.html">kardon BDS 7772/120 integrated 3D</a>
-                                        </div>
-                                        <div class="brand">harman</div>
-                                    </div>
-                                    <div class="prices">
-                                        <div class="price-current text-right">$1199.00</div>
-                                    </div>
-                                    <div class="hover-area">
-                                        <div class="add-cart-button">
-                                            <a href="single-product.html" class="le-button">добавить в корзину</a>
-                                        </div>
-                                    </div>
-                                </div><!-- /.product-item -->
-                            </div><!-- /.product-item-holder -->
-
-                            <div class=" no-margin carousel-item product-item-holder size-small hover">
-                                <div class="product-item">
-                                    <div class="ribbon green"><span>bestseller</span></div>
-                                    <div class="image">
-                                        <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-01.jpg" />
-                                    </div>
-                                    <div class="body">
-                                        <div class="title">
-                                            <a href="single-product.html">netbook acer travel B113-E-10072</a>
-                                        </div>
-                                        <div class="brand">acer</div>
-                                    </div>
-                                    <div class="prices">
-                                        <div class="price-current text-right">$1199.00</div>
-                                    </div>
-                                    <div class="hover-area">
-                                        <div class="add-cart-button">
-                                            <a href="single-product.html" class="le-button">добавить в корзину</a>
-                                        </div>
-                                    </div>
-                                </div><!-- /.product-item -->
-                            </div><!-- /.product-item-holder -->
-
-                            <div class=" no-margin carousel-item product-item-holder size-small hover">
-                                <div class="product-item">
-
-                                    <div class="image">
-                                        <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-01.jpg" />
-                                    </div>
-                                    <div class="body">
-                                        <div class="title">
-                                            <a href="single-product.html">iPod touch 5th generation,64GB, blue</a>
-                                        </div>
-                                        <div class="brand">apple</div>
-                                    </div>
-                                    <div class="prices">
-                                        <div class="price-current text-right">$1199.00</div>
-                                    </div>
-                                    <div class="hover-area">
-                                        <div class="add-cart-button">
-                                            <a href="single-product.html" class="le-button">добавить в корзину</a>
-                                        </div>
-                                    </div>
-                                </div><!-- /.product-item -->
-                            </div><!-- /.product-item-holder -->
-
-                            <div class=" no-margin carousel-item product-item-holder size-small hover">
-                                <div class="product-item">
-
-                                    <div class="image">
-                                        <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-01.jpg" />
-                                    </div>
-                                    <div class="body">
-                                        <div class="title">
-                                            <a href="single-product.html">s2340T23" full HD multi-Touch Monitor</a>
-                                        </div>
-                                        <div class="brand">dell</div>
-                                    </div>
-                                    <div class="prices">
-                                        <div class="price-current text-right">$1199.00</div>
-                                    </div>
-                                    <div class="hover-area">
-                                        <div class="add-cart-button">
-                                            <a href="single-product.html" class="le-button">добавить в корзину</a>
-                                        </div>
-                                    </div>
-                                </div><!-- /.product-item -->
-                            </div><!-- /.product-item-holder -->
-
-                            <div class=" no-margin carousel-item product-item-holder size-small hover">
-                                <div class="product-item">
-                                    <div class="ribbon blue"><span>new!</span></div>
-                                    <div class="image">
-                                       <img alt="" src="assets/images/blank.gif" data-echo="assets/images/products/product-01.jpg" />
-                                    </div>
-                                    <div class="body">
-                                        <div class="title">
-                                            <a href="single-product.html">kardon BDS 7772/120 integrated 3D</a>
-                                        </div>
-                                        <div class="brand">harman</div>
-                                    </div>
-                                    <div class="prices">
-                                        <div class="price-current text-right">$1199.00</div>
-                                    </div>
-                                    <div class="hover-area">
-                                        <div class="add-cart-button">
-                                            <a href="single-product.html" class="le-button">добавить в корзину</a>
-                                        </div>
-                                    </div>
-                                </div><!-- /.product-item -->
-                            </div><!-- /.product-item-holder -->
+                                if(empty($_SESSION['products_last_seen'])) {
+                                    echo "<h4 style='text-align: center;'>Список пуст :(</h4>";
+                                } else {
+                                    for ($i=0; $i < count($_SESSION['products_last_seen']); $i++) { 
+                                        echo $_SESSION['products_last_seen'][$i];
+                                    }
+                                }
+                            ?>
                         </div><!-- /#recently-carousel -->
 
                     </div><!-- /.carousel-holder -->
@@ -403,7 +197,7 @@ require_once 'assets/mysql_connect.php';
             <!-- ========================================= TOP BRANDS ========================================= -->
             <section id="top-brands" class="wow fadeInUp">
                 <div class="container">
-                    <div class="carousel-holder" >
+                    <div class="carousel-holder" style="margin-bottom: 20px">
 
                         <div class="title-nav">
                             <h1>Лучшие бренды</h1>

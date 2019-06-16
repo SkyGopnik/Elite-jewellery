@@ -39,7 +39,7 @@ function insertSQL($mysql, $params, $table_name) {
         return $mysql->errorInfo();
     }
 } 
- 
+  
 function removeSQL($mysql, $table_name, $value_where, $value_value) {
     $mysql->query("DELETE FROM `{$table_name}` WHERE `{$value_where}` = '".$value_value."'");
 }
@@ -47,7 +47,10 @@ function removeSQL($mysql, $table_name, $value_where, $value_value) {
 function getSum($mysql, $date, $time) {
     $getSum = $mysql->query("SELECT SUM(price) FROM `shop_orders` WHERE `order_date`>".strtotime(date($date))." AND `order_date`<".(strtotime(date($date))+$time)."");
     $row = $getSum->fetchAll();
-    return $row[0][0];
+    if(!is_null($row[0][0]))
+        return $row[0][0];
+    else
+        return 0;
 } 
 
 function getOrdersCount($mysql, $date, $time) {
